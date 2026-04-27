@@ -113,7 +113,6 @@ export default function UserTable() {
         </Badge>
       </Table.Td>
 
-
       <Table.Td>
         <Group gap={0} justify='flex-end'>
 
@@ -122,8 +121,6 @@ export default function UserTable() {
               <IconPencil size={16} />
             </ActionIcon>
           </Tooltip>
-
-
           <Menu shadow='md' width={150}>
             <Menu.Target>
               <ActionIcon variant='subtle'>
@@ -150,7 +147,6 @@ export default function UserTable() {
 
     </Table.Tr>
   ));
-
 
   return (
     <Stack>
@@ -196,7 +192,6 @@ export default function UserTable() {
               <Table.Th />
             </Table.Tr>
           </Table.Thead>
-
 
           <Table.Tbody>
             {loading ? (

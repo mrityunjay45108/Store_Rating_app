@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   TextInput,
   PasswordInput,
@@ -13,9 +13,9 @@ import {
   Group,
   Divider,
   Select,
-} from '@mantine/core';
-import { useForm } from '@mantine/form';
-import { useNavigate, Link } from 'react-router-dom';
+} from "@mantine/core";
+import { useForm } from "@mantine/form";
+import { useNavigate, Link } from "react-router-dom";
 import {
   IconUser,
   IconAt,
@@ -24,14 +24,14 @@ import {
   IconUserPlus,
   IconArrowLeft,
   IconUsersGroup,
-} from '@tabler/icons-react';
+} from "@tabler/icons-react";
 
-import api from '../services/api';
+import api from "../services/api";
 import {
   validateName,
   validatePassword,
   validateAddress,
-} from '../utils/validations';
+} from "../utils/validations";
 
 export default function Signup() {
   const navigate = useNavigate();
@@ -39,29 +39,29 @@ export default function Signup() {
 
   const form = useForm({
     initialValues: {
-      name: '',
-      email: '',
-      password: '',
-      address: '',
-      role: 'user',
+      name: "",
+      email: "",
+      password: "",
+      address: "",
+      role: "user",
     },
 
     validate: {
       name: validateName,
       address: validateAddress,
       password: validatePassword,
-      email: (value) => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
+      email: (value) => (/^\S+@\S+$/.test(value) ? null : "Invalid email"),
     },
   });
 
   const handleSubmit = async (values) => {
     setLoading(true);
     try {
-      await api.post('/auth/register', values);
-      alert('Registration successful! Please login.');
-      navigate('/login');
+      await api.post("/auth/register", values);
+      alert("Registration successful! Please login.");
+      navigate("/login");
     } catch (err) {
-      alert(err.response?.data?.message || 'Signup failed');
+      alert(err.response?.data?.message || "Signup failed");
     } finally {
       setLoading(false);
     }
@@ -70,27 +70,27 @@ export default function Signup() {
   return (
     <Container size={500} my={40}>
       {/* Back to Landing Page Button */}
-     <Button 
-  variant="light" 
-  color="gray"
-  leftSection={<IconArrowLeft size={16} stroke={2.5} />} 
-  onClick={() => navigate('/')}
-  mb="xl"
-  radius="xl" 
-  size="xs"
-  px="md"
-  styles={{
-    root: {
-      border: '1px solid transparent',
-      '&:hover': {
-        border: '1px solid #e0e0e0',
-        backgroundColor: '#f8f9fa',
-      }
-    }
-  }}
->
-  Back to home
-</Button>
+      <Button
+        variant="light"
+        color="gray"
+        leftSection={<IconArrowLeft size={16} stroke={2.5} />}
+        onClick={() => navigate("/")}
+        mb="xl"
+        radius="xl"
+        size="xs"
+        px="md"
+        styles={{
+          root: {
+            border: "1px solid transparent",
+            "&:hover": {
+              border: "1px solid #e0e0e0",
+              backgroundColor: "#f8f9fa",
+            },
+          },
+        }}
+      >
+        Back to home
+      </Button>
 
       <Paper withBorder shadow="xl" p={30} radius="lg">
         <Title ta="center" fw={900} order={2}>
@@ -107,7 +107,7 @@ export default function Signup() {
               placeholder="Min 20 - Max 60 characters"
               required
               leftSection={<IconUser size={16} />}
-              {...form.getInputProps('name')}
+              {...form.getInputProps("name")}
               radius="md"
             />
 
@@ -116,7 +116,7 @@ export default function Signup() {
               placeholder="you@email.com"
               required
               leftSection={<IconAt size={16} />}
-              {...form.getInputProps('email')}
+              {...form.getInputProps("email")}
               radius="md"
             />
 
@@ -126,11 +126,11 @@ export default function Signup() {
               required
               leftSection={<IconUsersGroup size={16} />}
               data={[
-                { value: 'user', label: 'Normal User' },
-                { value: 'store_owner', label: 'Store Owner' },
-                { value: 'system_administrator', label: 'System Administrator' },
+                { value: "user", label: "Normal User" },
+                { value: "store_owner", label: "Store Owner" },
+                // { value: 'system_administrator', label: 'System Administrator' },
               ]}
-              {...form.getInputProps('role')}
+              {...form.getInputProps("role")}
               radius="md"
             />
 
@@ -140,9 +140,11 @@ export default function Signup() {
               required
               minRows={3}
               // Textarea mein leftSection top pe align hota hai
-              leftSectionProps={{ style: { alignItems: 'flex-start', paddingTop: '10px' } }}
+              leftSectionProps={{
+                style: { alignItems: "flex-start", paddingTop: "10px" },
+              }}
               leftSection={<IconMapPin size={16} />}
-              {...form.getInputProps('address')}
+              {...form.getInputProps("address")}
               radius="md"
             />
 
@@ -151,7 +153,7 @@ export default function Signup() {
               placeholder="8-16 chars, Uppercase & Special"
               required
               leftSection={<IconLock size={16} />}
-              {...form.getInputProps('password')}
+              {...form.getInputProps("password")}
               radius="md"
             />
 
@@ -177,7 +179,7 @@ export default function Signup() {
 
         <Group justify="center">
           <Text size="sm">
-            Already a member?{' '}
+            Already a member?{" "}
             <Anchor component={Link} to="/login" fw={700}>
               Login here
             </Anchor>

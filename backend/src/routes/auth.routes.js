@@ -20,13 +20,11 @@ router.post('/register', [
     v.addr,
     v.errors
 ], register);
-
 // Login 
 router.post('/login', [
     v.email,
     v.errors
 ], login);
-
 // Change Password
 router.put('/change-password', 
     authenticateToken, 
@@ -34,5 +32,4 @@ router.put('/change-password',
     v.errors, 
     changePassword
 );
-
 module.exports = router;

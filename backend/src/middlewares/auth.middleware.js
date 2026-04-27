@@ -27,7 +27,6 @@ const authenticateToken = async (req, res, next) => {
     return res.status(403).json({ message: "Invalid or expired token" });
   }
 };
-
 //  Generic Role Check (Multiple roles ke liye)
 const authorizeRoles = (...roles) => {
   return (req, res, next) => {
@@ -39,7 +38,6 @@ const authorizeRoles = (...roles) => {
     next();
   };
 };
-
 // Strict System Administrator Check
 const adminOnly = (req, res, next) => {
     if (req.user && req.user.role === 'system_administrator') {

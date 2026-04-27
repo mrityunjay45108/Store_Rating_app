@@ -3,9 +3,7 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 
 dotenv.config();
-// Initialize 'app' first
 const app = express(); 
-//  Middlewares import
 const { errorHandler, notFound } = require('./middlewares/error.middleware');
 // Routes import
 const authRoutes = require('./routes/auth.routes');
@@ -29,11 +27,8 @@ app.use('/api/reviews', reviewRoutes);
 app.get('/api/health', (req, res) => {
     res.json({ status: 'OK', message: 'Server is running perfectly!' });
 });
-// 404 handler
 app.use(notFound);
-// Error handler
 app.use(errorHandler);
-// Start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(` Server running on http://localhost:${PORT}`);

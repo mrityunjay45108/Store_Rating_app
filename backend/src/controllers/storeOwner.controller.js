@@ -1,6 +1,5 @@
 const pool = require("../config/database");
 
-
 // Owner dashboard
 const getStoreOwnerDashboard = async (req,res)=>{
  try{

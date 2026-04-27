@@ -17,8 +17,6 @@ import api from '../../services/api';
 
 export default function AddUserModal({ opened, close, roleType, refreshData }) {
   const [loading, setLoading] = useState(false);
-
-  // Form initialization
   const form = useForm({
     initialValues: {
       name: '',
@@ -34,8 +32,6 @@ export default function AddUserModal({ opened, close, roleType, refreshData }) {
       address: (value) => (value.length < 5 ? 'Please enter a valid address' : null),
     },
   });
-
-  // Sync role field when the modal opens or roleType changes
   useEffect(() => {
     if (opened && roleType) {
       form.setFieldValue('role', roleType);
@@ -45,12 +41,11 @@ export default function AddUserModal({ opened, close, roleType, refreshData }) {
   const handleSubmit = async (values) => {
     setLoading(true);
     try {
-      // Backend route for user creation
       await api.post('/admin/users', values);
       
       form.reset();
-      refreshData(); // Refresh the dashboard table
-      close(); // Close modal
+      refreshData(); 
+      close(); 
     } catch (err) {
       console.error("User Creation Error:", err);
       alert(err.response?.data?.message || "Failed to create user. Please try again.");
@@ -58,8 +53,6 @@ export default function AddUserModal({ opened, close, roleType, refreshData }) {
       setLoading(false);
     }
   };
-
-  // UI Configuration based on active role
   const getRoleConfig = () => {
     switch (roleType) {
       case 'store_owner':

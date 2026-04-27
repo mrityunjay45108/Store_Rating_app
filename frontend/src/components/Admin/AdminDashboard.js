@@ -79,7 +79,7 @@ export default function AdminDashboard() {
             Add User
           </Button>
           <Button variant="filled" color="teal" leftSection={<IconBuildingStore size={18}/>} onClick={() => handleOpenModal('store_owner')}>
-            Add Store
+            Add Store Owner
           </Button>
           <Button variant="filled" color="red" leftSection={<IconShieldPlus size={18}/>} onClick={() => handleOpenModal('system_administrator')}>
             Add Admin

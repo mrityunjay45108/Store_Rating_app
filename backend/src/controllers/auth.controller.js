@@ -14,14 +14,6 @@ const register = async (req, res) => {
         else if (role === 'admin' || role === 'system_administrator') {
             finalRole = 'system_administrator';
         }
-        // SECURITY CHECK: Agar aap chahte hain ki public signup se 
-        // System Administrator NA ban sake (sirf dashboard se bane):
-        // if (finalRole === 'system_administrator') {
-        //     // Agar aapko testing ke liye allow karna hai toh niche ki 3 lines comment kar dein
-        //     return res.status(403).json({ 
-        //         message: 'Unauthorized: System Administrator accounts can only be created by existing admins.' 
-        //     });
-        // }
 
         // User Existence Check
         const userExists = await pool.query('SELECT id FROM users WHERE email = $1', [email]);

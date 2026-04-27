@@ -1,11 +1,11 @@
--- 1. FORCE RESET (Security aur Foreign Keys bypass karke delete)
+--  FORCE RESET (Security aur Foreign Keys bypass karke delete)
 DROP TABLE IF EXISTS ratings CASCADE;
 DROP TABLE IF EXISTS stores CASCADE;
 DROP TABLE IF EXISTS users CASCADE;
 
 DROP TYPE IF EXISTS user_role; 
 
--- 2. USERS TABLE 
+--  USERS TABLE 
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL CHECK (LENGTH(name) >= 3),
@@ -17,7 +17,7 @@ CREATE TABLE users (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT chk_role_type CHECK (role IN ('system_administrator', 'user', 'store_owner'))
 );
--- 3. STORES TABLE
+--  STORES TABLE
 CREATE TABLE stores (
     id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
@@ -27,7 +27,7 @@ CREATE TABLE stores (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
--- 4. RATINGS TABLE
+--  RATINGS TABLE
 CREATE TABLE ratings (
     id SERIAL PRIMARY KEY,
     user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
@@ -38,12 +38,12 @@ CREATE TABLE ratings (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     UNIQUE(user_id, store_id)
 );
--- 5. INDEXES (Optimization)
+--  INDEXES (Optimization)
 CREATE INDEX idx_users_email ON users(email);
 CREATE INDEX idx_users_role ON users(role);
 CREATE INDEX idx_stores_owner ON stores(owner_id);
 CREATE INDEX idx_ratings_store ON ratings(store_id);
--- 6. INSERT FRESH DATA
+--  INSERT FRESH DATA
 -- Admin Account
 INSERT INTO users (name, email, password_hash, address, role) 
 VALUES (

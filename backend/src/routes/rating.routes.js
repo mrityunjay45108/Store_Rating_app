@@ -7,7 +7,6 @@ const validators = require('../utils/validators');
 // Agar validator nahi mila toh empty array pass karega crash hone ke bajaye
 const vRating = validators.validateRating ? validators.validateRating() : [];
 const hErrors = validators.handleValidationErrors || ((req, res, next) => next());
-
 router.post('/', 
     authenticateToken, 
     vRating, 
@@ -19,5 +18,4 @@ router.get('/user/:storeId',
     authenticateToken, 
     getUserRating
 );
-
 module.exports = router;

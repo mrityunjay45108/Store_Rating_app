@@ -2,12 +2,9 @@ const pool = require('../config/database');
 
 
 const submitRating = async (req, res) => {
-    // 1. Destructure all possible fields from frontend
     const { store_id, storeId, rating, comment } = req.body;
     const finalStoreId = store_id || storeId; 
     const userId = req.user.id;
-    
-    // Terminal mein check karte hai ki kya data aa raha hai
     console.log(`User ${userId} is rating Store ${finalStoreId} with ${rating} stars`);
 
     // Strict Validations
@@ -24,7 +21,6 @@ const submitRating = async (req, res) => {
     }
 
     try {
-        // Check if this user has already rated this store
         const existing = await pool.query(
             'SELECT id FROM ratings WHERE user_id = $1 AND store_id = $2',
             [userId, finalStoreId]
@@ -32,7 +28,7 @@ const submitRating = async (req, res) => {
         
         let result;
         if (existing.rows.length > 0) {
-            // Update existing rating & comment
+            // Update existing rating and comment
             result = await pool.query(
                 `UPDATE ratings 
                  SET rating = $1, comment = $2, updated_at = CURRENT_TIMESTAMP
@@ -41,7 +37,7 @@ const submitRating = async (req, res) => {
                 [rating, comment || '', userId, finalStoreId]
             );
         } else {
-            // Insert new rating & comment
+            // Insert new rating and comment
             result = await pool.query(
                 `INSERT INTO ratings (user_id, store_id, rating, comment)
                  VALUES ($1, $2, $3, $4)

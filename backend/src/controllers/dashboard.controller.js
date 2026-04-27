@@ -14,8 +14,6 @@ const getStoreStats = async (req, res) => {
             ORDER BY average_rating DESC;
         `;
         const result = await pool.query(query);
-        
-        // Agar data empty hai tab bhi empty array bhejega error nahi
         res.json(result.rows); 
         
     } catch (error) {

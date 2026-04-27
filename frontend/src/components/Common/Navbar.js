@@ -64,7 +64,6 @@ export default function Navbar() {
             </Text>
           </Group>
 
-          {/* Navigation Links */}
           <Group gap={30}>
            
             {user?.role === 'system_administrator' && (

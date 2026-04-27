@@ -36,7 +36,7 @@ export default function AddUserModal({ opened, close, roleType, refreshData }) {
     if (opened && roleType) {
       form.setFieldValue('role', roleType);
     }
-  }, [roleType, opened]);
+  }, [roleType, opened, form]);
 
   const handleSubmit = async (values) => {
     setLoading(true);

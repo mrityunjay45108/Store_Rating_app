@@ -29,4 +29,10 @@ yarn-error.log*
 *.ntvs* 
 *.njsproj
 *.sln 
+.env
+node_modules/
+dist/
+build/
+*.log
+.DS_Store 
 

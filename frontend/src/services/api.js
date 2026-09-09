@@ -1,8 +1,19 @@
 import axios from 'axios';
 
-// console.log(process.env.REACT_APP_API_URL)
+const getBaseUrl = () => {
+  if (process.env.REACT_APP_API_URL) {
+    return process.env.REACT_APP_API_URL;
+  }
+  // In production (Vercel deployment), default to deployed Render backend
+  if (process.env.NODE_ENV === 'production') {
+    return 'https://store-rating-app-dvad.onrender.com/api';
+  }
+  // In local development
+  return 'http://localhost:5000/api';
+};
+
 const api = axios.create({
-  baseURL: 'http://localhost:5000/api',
+  baseURL: getBaseUrl(),
   headers: {
     'Content-Type': 'application/json'
   }

@@ -13,11 +13,30 @@ const ratingRoutes = require('./routes/rating.routes');
 const adminRoutes = require('./routes/admin.routes');
 const reviewRoutes = require('./routes/review.routes'); // New review routes
 // --- Standard Middlewares ---
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://store-rating-app-tan.vercel.app",
+  "https://store-rating-app-xv2f.vercel.app"
+];
+
+if (process.env.FRONTEND_URL) {
+  allowedOrigins.push(process.env.FRONTEND_URL.replace(/\/$/, ""));
+}
+if (process.env.CLIENT_URL) {
+  allowedOrigins.push(process.env.CLIENT_URL.replace(/\/$/, ""));
+}
+
 app.use(cors({
-  origin: [
-    "http://localhost:3000",
-    "https://store-rating-app-xv2f.vercel.app"
-  ]
+  origin: (origin, callback) => {
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin) || origin.endsWith('.vercel.app')) {
+      return callback(null, true);
+    }
+    return callback(null, true);
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
